@@ -55,8 +55,8 @@ function App() {
       const winResult = detectWins(card, marks, ruleMode);
 
       if (winResult.isWin) {
-        // Create a unique key for this win state
-        const winKey = `${card.id}-${calledNumbers.length}-${ruleMode}`;
+        // Create a unique key for this win state (card + mode, not including called count)
+        const winKey = `${card.id}-${ruleMode}`;
 
         if (!celebratedWinsRef.current.has(winKey)) {
           celebratedWinsRef.current.add(winKey);
