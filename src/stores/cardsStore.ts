@@ -2,7 +2,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { Card, Cell } from '../core/models';
-import { createEmptyCard, generateId, createCell } from '../core/models';
+import { generateId, createCell } from '../core/models';
 
 interface CardsState {
   cards: Card[];

@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
-import type { Card, Cell } from '../core/models';
-import { BINGO_LETTERS, COLUMN_RANGES, isValidNumberForColumn, getColumnColorClass, getColumnTextColorClass } from '../core/models';
+import type { Card } from '../core/models';
+import { BINGO_LETTERS, COLUMN_RANGES, getColumnColorClass, getColumnTextColorClass } from '../core/models';
 
 interface CardEditorProps {
   card: Card;

@@ -63,7 +63,7 @@ export function isBlackout(marks: boolean[]): boolean {
  * Detect wins based on the rule mode.
  */
 export function detectWins(
-  card: Card,
+  _card: Card,
   marks: boolean[],
   ruleMode: RuleMode
 ): WinResult {
