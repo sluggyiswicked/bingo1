@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import type { Card } from '../core/models';
-import { BINGO_LETTERS, COLUMN_RANGES, getColumnColorClass, getColumnTextColorClass } from '../core/models';
+import { BINGO_LETTERS, COLUMN_RANGES, getColumnColorClass, getColumnTextColorClass, getColumnBorderColorClass } from '../core/models';
 
 interface CardEditorProps {
   card: Card;
@@ -160,7 +160,7 @@ export function CardEditor({ card, onCellChange, onSave, onCancel }: CardEditorP
                     key={num}
                     onClick={() => !isUsed && handleNumberSelect(num)}
                     disabled={isUsed}
-                    className={`w-12 h-10 flex items-center justify-center font-semibold rounded transition-all
+                    className={`w-12 h-10 flex items-center justify-center font-semibold rounded transition-all border-2 ${getColumnBorderColorClass(col)}
                       ${isCurrentValue
                         ? `${getColumnColorClass(col)} text-white`
                         : isUsed
