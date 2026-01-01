@@ -75,13 +75,13 @@ export function CardEditor({ card, onCellChange, onSave, onCancel }: CardEditorP
     let classes = 'w-14 h-14 flex items-center justify-center text-xl font-semibold border-2 rounded transition-all ';
 
     if (cell.isFree) {
-      classes += 'bg-green-100 border-green-500 text-green-700 text-sm ';
+      classes += 'bg-green-100 dark:bg-green-900/50 border-green-500 text-green-700 dark:text-green-300 text-sm ';
     } else if (isSelected) {
-      classes += `bg-gray-100 border-4 ${getColumnColorClass(cell.col).replace('bg-', 'border-')} `;
+      classes += `bg-gray-100 dark:bg-gray-700 border-4 ${getColumnColorClass(cell.col).replace('bg-', 'border-')} `;
     } else if (cell.number === undefined) {
-      classes += 'bg-gray-50 border-dashed border-gray-300 ';
+      classes += 'bg-gray-50 dark:bg-gray-800 border-dashed border-gray-300 dark:border-gray-600 ';
     } else {
-      classes += 'bg-white border-gray-300 cursor-pointer hover:border-gray-400 ';
+      classes += 'bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 cursor-pointer hover:border-gray-400 ';
     }
 
     return classes;
@@ -129,7 +129,7 @@ export function CardEditor({ card, onCellChange, onSave, onCancel }: CardEditorP
 
       {/* Number Picker */}
       {selectedIndex !== null && selectedIndex !== 12 && (
-        <div className="bg-white rounded-lg p-4 shadow-md">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-md">
           <div className="flex justify-between items-center mb-3">
             <span className={`font-bold text-lg ${getColumnTextColorClass(selectedIndex % 5)}`}>
               {BINGO_LETTERS[selectedIndex % 5]} Column
@@ -137,7 +137,7 @@ export function CardEditor({ card, onCellChange, onSave, onCancel }: CardEditorP
             {card.cells[selectedIndex]?.number !== undefined && (
               <button
                 onClick={handleClearCell}
-                className="px-3 py-1 text-sm bg-gray-100 rounded hover:bg-gray-200"
+                className="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded hover:bg-gray-200 dark:hover:bg-gray-600"
               >
                 Clear
               </button>
@@ -164,8 +164,8 @@ export function CardEditor({ card, onCellChange, onSave, onCancel }: CardEditorP
                       ${isCurrentValue
                         ? `${getColumnColorClass(col)} text-white`
                         : isUsed
-                          ? 'bg-gray-100 text-gray-400 line-through cursor-not-allowed'
-                          : 'bg-gray-100 text-gray-800 hover:bg-gray-200 cursor-pointer'
+                          ? 'bg-gray-100 dark:bg-gray-700 text-gray-400 dark:text-gray-500 line-through cursor-not-allowed'
+                          : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer'
                       }`}
                   >
                     {num}
@@ -188,7 +188,7 @@ export function CardEditor({ card, onCellChange, onSave, onCancel }: CardEditorP
         {onCancel && (
           <button
             onClick={onCancel}
-            className="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300"
+            className="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg font-semibold hover:bg-gray-300 dark:hover:bg-gray-600"
           >
             Cancel
           </button>
@@ -200,7 +200,7 @@ export function CardEditor({ card, onCellChange, onSave, onCancel }: CardEditorP
             className={`px-6 py-3 rounded-lg font-semibold transition-all
               ${isValid
                 ? 'bg-blue-500 text-white hover:bg-blue-600'
-                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                : 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
               }`}
           >
             {isValid ? 'Save Card' : `Fill ${25 - filledCount} more cells`}

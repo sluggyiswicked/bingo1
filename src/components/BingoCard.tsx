@@ -26,13 +26,13 @@ export function BingoCard({
     let classes = 'w-12 h-12 flex items-center justify-center text-lg font-semibold border-2 rounded transition-all ';
 
     if (cell.isFree) {
-      classes += 'bg-green-100 border-green-500 text-green-700 text-sm ';
+      classes += 'bg-green-100 dark:bg-green-900/50 border-green-500 text-green-700 dark:text-green-300 text-sm ';
     } else if (isWinning) {
-      classes += 'bg-yellow-200 border-yellow-500 text-yellow-800 ';
+      classes += 'bg-yellow-200 dark:bg-yellow-700/50 border-yellow-500 text-yellow-800 dark:text-yellow-200 ';
     } else if (isMarked) {
-      classes += 'bg-blue-100 border-blue-500 text-blue-700 ';
+      classes += 'bg-blue-100 dark:bg-blue-900/50 border-blue-500 text-blue-700 dark:text-blue-300 ';
     } else {
-      classes += 'bg-white border-gray-300 text-gray-800 ';
+      classes += 'bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 ';
     }
 
     if (onCellClick && !cell.isFree) {
@@ -43,9 +43,9 @@ export function BingoCard({
   };
 
   return (
-    <div className={`bg-white rounded-lg p-3 shadow-md ${isWinner ? 'ring-4 ring-yellow-400' : ''}`}>
+    <div className={`bg-white dark:bg-gray-800 rounded-lg p-3 shadow-md ${isWinner ? 'ring-4 ring-yellow-400' : ''}`}>
       {showName && (
-        <div className="text-center font-semibold text-gray-800 mb-2">{card.name}</div>
+        <div className="text-center font-semibold text-gray-800 dark:text-gray-100 mb-2">{card.name}</div>
       )}
 
       {/* Header */}
@@ -84,7 +84,7 @@ export function BingoCard({
 
       {isWinner && (
         <div className="mt-2 text-center">
-          <span className="inline-flex items-center gap-1 bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full font-bold">
+          <span className="inline-flex items-center gap-1 bg-yellow-100 dark:bg-yellow-700/50 text-yellow-800 dark:text-yellow-200 px-3 py-1 rounded-full font-bold">
             BINGO!
           </span>
         </div>

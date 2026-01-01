@@ -9,7 +9,7 @@ export function NumberPicker({ calledNumbers, onToggle }: NumberPickerProps) {
   const calledSet = new Set(calledNumbers);
 
   return (
-    <div className="bg-white rounded-lg p-4 shadow-md">
+    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-md">
       {/* Header */}
       <div className="flex justify-center gap-1 mb-2">
         {BINGO_LETTERS.map((letter, col) => (
@@ -37,7 +37,7 @@ export function NumberPicker({ calledNumbers, onToggle }: NumberPickerProps) {
                   className={`flex-1 max-w-[60px] h-9 flex items-center justify-center font-semibold rounded transition-all
                     ${isCalled
                       ? `${getColumnColorClass(col)} text-white`
-                      : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+                      : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'
                     }`}
                 >
                   {num}
@@ -78,7 +78,7 @@ export function RecentlyCalled({ calledNumbers, onRemove, maxDisplay = 10 }: Rec
             key={num}
             onClick={() => onRemove(num)}
             className={`flex flex-col items-center px-3 py-1 rounded border-2 transition-all hover:opacity-80
-              ${index === 0 ? 'bg-gray-100' : 'bg-white'}
+              ${index === 0 ? 'bg-gray-100 dark:bg-gray-700' : 'bg-white dark:bg-gray-800'}
               ${col === 0 ? 'border-red-500' : ''}
               ${col === 1 ? 'border-orange-500' : ''}
               ${col === 2 ? 'border-green-500' : ''}
@@ -86,7 +86,7 @@ export function RecentlyCalled({ calledNumbers, onRemove, maxDisplay = 10 }: Rec
               ${col === 4 ? 'border-purple-500' : ''}
             `}
           >
-            <span className="text-xs text-gray-500">{BINGO_LETTERS[col]}</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">{BINGO_LETTERS[col]}</span>
             <span className={`text-lg font-bold
               ${col === 0 ? 'text-red-500' : ''}
               ${col === 1 ? 'text-orange-500' : ''}
