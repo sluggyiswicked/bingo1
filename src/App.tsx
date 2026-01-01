@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useCardsStore, useSessionStore } from './stores';
 import { BingoCard } from './components/BingoCard';
 import { NumberPicker, RecentlyCalled } from './components/NumberPicker';
 import { CardEditor } from './components/CardEditor';
+import { BingoOverlay } from './components/BingoOverlay';
 import { computeMarks, detectWins } from './core/rules';
 import type { Card, Cell, RuleMode } from './core/models';
 import { createCell, LINE_INDICES, RULE_MODES, RULE_MODE_LABELS } from './core/models';
@@ -19,8 +20,45 @@ function App() {
     Array.from({ length: 25 }, (_, i) => createCell(i))
   );
 
+  // Bingo celebration state
+  const [showBingoOverlay, setShowBingoOverlay] = useState(false);
+  const [winningCardName, setWinningCardName] = useState('');
+  const celebratedWinsRef = useRef<Set<string>>(new Set());
+
   const { cards, addCard, deleteCard, setCellNumber, getCard } = useCardsStore();
   const { currentSession, startSession, toggleCalledNumber, setRuleMode, resetMarks } = useSessionStore();
+
+  // Check for new bingo wins
+  useEffect(() => {
+    if (!currentSession || currentSession.ruleMode === 'NONE') return;
+
+    const calledNumbers = currentSession.calledNumbers;
+    const ruleMode = currentSession.ruleMode;
+
+    for (const card of cards) {
+      const marks = computeMarks(card, calledNumbers);
+      const winResult = detectWins(card, marks, ruleMode);
+
+      if (winResult.isWin) {
+        // Create a unique key for this win state
+        const winKey = `${card.id}-${calledNumbers.length}-${ruleMode}`;
+
+        if (!celebratedWinsRef.current.has(winKey)) {
+          celebratedWinsRef.current.add(winKey);
+          setWinningCardName(card.name);
+          setShowBingoOverlay(true);
+          break; // Only show one celebration at a time
+        }
+      }
+    }
+  }, [currentSession?.calledNumbers, currentSession?.ruleMode, cards]);
+
+  // Clear celebrated wins when session is reset
+  useEffect(() => {
+    if (currentSession?.calledNumbers.length === 0) {
+      celebratedWinsRef.current.clear();
+    }
+  }, [currentSession?.calledNumbers.length]);
 
   // Start session if not already started
   const ensureSession = () => {
@@ -286,6 +324,14 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-100">
+      {/* Bingo celebration overlay */}
+      {showBingoOverlay && (
+        <BingoOverlay
+          winnerName={winningCardName}
+          onDismiss={() => setShowBingoOverlay(false)}
+        />
+      )}
+
       {/* Header */}
       <header className="bg-blue-600 text-white shadow-lg">
         <div className="max-w-6xl mx-auto px-4 py-4">
