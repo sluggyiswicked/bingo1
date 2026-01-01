@@ -5,7 +5,7 @@ import { NumberPicker, RecentlyCalled } from './components/NumberPicker';
 import { CardEditor } from './components/CardEditor';
 import { computeMarks, detectWins } from './core/rules';
 import type { Card, Cell, RuleMode } from './core/models';
-import { createCell, LINE_INDICES, RULE_MODES } from './core/models';
+import { createCell, LINE_INDICES, RULE_MODES, RULE_MODE_LABELS } from './core/models';
 
 type Tab = 'cards' | 'session';
 type CardView = 'list' | 'new' | 'edit';
@@ -210,20 +210,18 @@ function App() {
           {/* Left side - Number picker */}
           <div className="lg:flex-1">
             {/* Rule mode selector */}
-            <div className="mb-4 flex flex-wrap gap-2 justify-center">
-              {RULE_MODES.map(mode => (
-                <button
-                  key={mode}
-                  onClick={() => setRuleMode(mode)}
-                  className={`px-3 py-1 rounded text-sm font-medium transition-all
-                    ${ruleMode === mode
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                    }`}
-                >
-                  {mode}
-                </button>
-              ))}
+            <div className="mb-4 flex justify-center">
+              <select
+                value={ruleMode}
+                onChange={(e) => setRuleMode(e.target.value as RuleMode)}
+                className="px-4 py-2 rounded-lg border-2 border-gray-300 bg-white font-medium text-gray-700 focus:border-blue-500 outline-none"
+              >
+                {RULE_MODES.map(mode => (
+                  <option key={mode} value={mode}>
+                    {RULE_MODE_LABELS[mode].name}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <NumberPicker

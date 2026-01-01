@@ -21,6 +21,15 @@ export type RuleMode = 'STANDARD' | 'DOUBLE' | 'BOX' | 'X' | 'BLACKOUT' | 'NONE'
 
 export const RULE_MODES: RuleMode[] = ['STANDARD', 'DOUBLE', 'BOX', 'X', 'BLACKOUT', 'NONE'];
 
+export const RULE_MODE_LABELS: Record<RuleMode, { name: string; description: string }> = {
+  STANDARD: { name: 'Single Line', description: 'Any row, column, or diagonal' },
+  DOUBLE: { name: 'Double Bingo', description: 'Complete 2 lines' },
+  BOX: { name: 'Picture Frame', description: 'All 16 outer edge squares' },
+  X: { name: 'X Pattern', description: 'Both diagonals' },
+  BLACKOUT: { name: 'Blackout', description: 'All 25 squares' },
+  NONE: { name: 'Free Play', description: 'No win detection' },
+};
+
 export interface GameSession {
   id: string;
   startedAt: number;
