@@ -341,6 +341,9 @@ function App() {
               </select>
             </div>
 
+            <div className="text-center text-gray-500 dark:text-gray-400 mb-2 font-medium">
+              Tap numbers as they're called
+            </div>
             <NumberPicker
               calledNumbers={calledNumbers}
               onToggle={toggleCalledNumber}
@@ -456,7 +459,7 @@ function App() {
                 : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
               }`}
           >
-            Call Numbers
+            Track Game
           </button>
         </div>
       </nav>
