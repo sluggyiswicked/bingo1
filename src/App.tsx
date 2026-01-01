@@ -183,14 +183,78 @@ function App() {
     return (
       <div className="p-4">
         {cards.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="text-gray-400 mb-4">No cards yet</div>
-            <button
-              onClick={handleCreateCard}
-              className="px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600"
-            >
-              Create Your First Card
-            </button>
+          <div className="max-w-2xl mx-auto">
+            {/* Welcome Hero */}
+            <div className="text-center py-8">
+              <h2 className="text-3xl font-bold text-gray-800 mb-3">Welcome to Bingo Assistant</h2>
+              <p className="text-lg text-gray-600 mb-6">
+                Your digital companion for tracking bingo cards during live games
+              </p>
+            </div>
+
+            {/* Value Proposition */}
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 mb-6 border border-blue-100">
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">How it works</h3>
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">1</div>
+                  <div>
+                    <div className="font-medium text-gray-800">Add your bingo cards</div>
+                    <div className="text-gray-600 text-sm">Enter the numbers from your physical bingo cards</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">2</div>
+                  <div>
+                    <div className="font-medium text-gray-800">Mark called numbers</div>
+                    <div className="text-gray-600 text-sm">Tap numbers as they're called - all your cards update automatically</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">3</div>
+                  <div>
+                    <div className="font-medium text-gray-800">Never miss a BINGO</div>
+                    <div className="text-gray-600 text-sm">We'll alert you instantly when any of your cards wins</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Game Modes Info */}
+            <div className="bg-white rounded-xl p-6 mb-6 shadow-sm border border-gray-100">
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">Supports all game modes</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
+                <div className="bg-gray-50 rounded-lg px-3 py-2">
+                  <span className="font-medium">Single Line</span>
+                </div>
+                <div className="bg-gray-50 rounded-lg px-3 py-2">
+                  <span className="font-medium">Double Bingo</span>
+                </div>
+                <div className="bg-gray-50 rounded-lg px-3 py-2">
+                  <span className="font-medium">Picture Frame</span>
+                </div>
+                <div className="bg-gray-50 rounded-lg px-3 py-2">
+                  <span className="font-medium">X Pattern</span>
+                </div>
+                <div className="bg-gray-50 rounded-lg px-3 py-2">
+                  <span className="font-medium">Blackout</span>
+                </div>
+                <div className="bg-gray-50 rounded-lg px-3 py-2">
+                  <span className="font-medium">Free Play</span>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA */}
+            <div className="text-center">
+              <button
+                onClick={handleCreateCard}
+                className="px-8 py-4 bg-blue-500 text-white rounded-xl font-semibold text-lg hover:bg-blue-600 shadow-lg hover:shadow-xl transition-all"
+              >
+                Create Your First Card
+              </button>
+              <p className="text-gray-500 text-sm mt-3">It only takes a minute to add your card numbers</p>
+            </div>
           </div>
         ) : (
           <>
@@ -293,8 +357,17 @@ function App() {
               Your Cards (click numbers to toggle)
             </div>
             {cards.length === 0 ? (
-              <div className="text-center text-gray-400 py-8">
-                No cards yet. Create a card first!
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 text-center">
+                <div className="text-blue-800 font-medium mb-2">No cards added yet</div>
+                <p className="text-blue-600 text-sm mb-4">
+                  Add your bingo card numbers first, then come back here to track called numbers during the game.
+                </p>
+                <button
+                  onClick={() => { setActiveTab('cards'); handleCreateCard(); }}
+                  className="px-4 py-2 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600"
+                >
+                  Add Your First Card
+                </button>
               </div>
             ) : (
               <div className="grid gap-4 md:grid-cols-2">
