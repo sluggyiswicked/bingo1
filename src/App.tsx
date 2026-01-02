@@ -55,8 +55,9 @@ function App() {
       const winResult = detectWins(card, marks, ruleMode);
 
       if (winResult.isWin) {
-        // Create a unique key for this win state (card + mode, not including called count)
-        const winKey = `${card.id}-${ruleMode}`;
+        // Create a unique key including the winning lines so new wins trigger celebration
+        const winningLines = winResult.winningLines?.sort().join(',') || '';
+        const winKey = `${card.id}-${ruleMode}-${winningLines}`;
 
         if (!celebratedWinsRef.current.has(winKey)) {
           celebratedWinsRef.current.add(winKey);
