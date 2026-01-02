@@ -199,78 +199,50 @@ function App() {
     return (
       <div className="p-4">
         {cards.length === 0 ? (
-          <div className="max-w-2xl mx-auto">
-            {/* Welcome Hero */}
-            <div className="text-center py-8">
-              <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-3">Welcome to Bingo Assistant</h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-                Your digital companion for tracking bingo cards during live games
-              </p>
+          <div className="max-w-md mx-auto text-center py-6">
+            {/* BINGO Hero */}
+            <div className="flex justify-center gap-2 mb-2">
+              <span className="text-5xl font-black text-red-500 drop-shadow-md">B</span>
+              <span className="text-5xl font-black text-orange-500 drop-shadow-md">I</span>
+              <span className="text-5xl font-black text-green-500 drop-shadow-md">N</span>
+              <span className="text-5xl font-black text-blue-500 drop-shadow-md">G</span>
+              <span className="text-5xl font-black text-purple-500 drop-shadow-md">O</span>
+            </div>
+            <div className="flex justify-center gap-3 mb-6">
+              <div className="w-3 h-3 rounded-full bg-red-500"></div>
+              <div className="w-3 h-3 rounded-full bg-orange-500"></div>
+              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+              <div className="w-3 h-3 rounded-full bg-purple-500"></div>
             </div>
 
-            {/* Value Proposition */}
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-xl p-6 mb-6 border border-blue-100 dark:border-blue-800">
-              <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">How it works</h3>
-              <div className="space-y-4">
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">1</div>
-                  <div>
-                    <div className="font-medium text-gray-800 dark:text-gray-100">Add your bingo cards</div>
-                    <div className="text-gray-600 dark:text-gray-400 text-sm">Enter the numbers from your physical bingo cards</div>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">2</div>
-                  <div>
-                    <div className="font-medium text-gray-800 dark:text-gray-100">Mark called numbers</div>
-                    <div className="text-gray-600 dark:text-gray-400 text-sm">Tap numbers as they're called - all your cards update automatically</div>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">3</div>
-                  <div>
-                    <div className="font-medium text-gray-800 dark:text-gray-100">Never miss a BINGO</div>
-                    <div className="text-gray-600 dark:text-gray-400 text-sm">We'll alert you instantly when any of your cards wins</div>
-                  </div>
-                </div>
+            {/* Tagline */}
+            <p className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-1">Track your cards.</p>
+            <p className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-8">Never miss a win.</p>
+
+            {/* Compact Steps */}
+            <div className="space-y-3 mb-8 text-left max-w-xs mx-auto">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">1.</span>
+                <span className="text-gray-700 dark:text-gray-300 font-medium">Add your bingo cards</span>
               </div>
-            </div>
-
-            {/* Game Modes Info */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 mb-6 shadow-sm border border-gray-100 dark:border-gray-700">
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-3">Supports all game modes</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
-                <div className="bg-gray-50 dark:bg-gray-700 rounded-lg px-3 py-2">
-                  <span className="font-medium dark:text-gray-200">Single Line</span>
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-700 rounded-lg px-3 py-2">
-                  <span className="font-medium dark:text-gray-200">Double Bingo</span>
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-700 rounded-lg px-3 py-2">
-                  <span className="font-medium dark:text-gray-200">Picture Frame</span>
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-700 rounded-lg px-3 py-2">
-                  <span className="font-medium dark:text-gray-200">X Pattern</span>
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-700 rounded-lg px-3 py-2">
-                  <span className="font-medium dark:text-gray-200">Blackout</span>
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-700 rounded-lg px-3 py-2">
-                  <span className="font-medium dark:text-gray-200">Free Play</span>
-                </div>
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">2.</span>
+                <span className="text-gray-700 dark:text-gray-300 font-medium">Tap numbers as they're called</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">3.</span>
+                <span className="text-gray-700 dark:text-gray-300 font-medium">Get alerted on BINGO!</span>
               </div>
             </div>
 
             {/* CTA */}
-            <div className="text-center">
-              <button
-                onClick={handleCreateCard}
-                className="px-8 py-4 bg-blue-500 text-white rounded-xl font-semibold text-lg hover:bg-blue-600 shadow-lg hover:shadow-xl transition-all"
-              >
-                Create Your First Card
-              </button>
-              <p className="text-gray-500 dark:text-gray-400 text-sm mt-3">It only takes a minute to add your card numbers</p>
-            </div>
+            <button
+              onClick={handleCreateCard}
+              className="w-full max-w-xs px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+            >
+              Get Started
+            </button>
           </div>
         ) : (
           <>
