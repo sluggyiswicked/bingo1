@@ -329,7 +329,11 @@ function App() {
                 <span className="font-semibold text-gray-700 dark:text-gray-200">Recently Called ({calledNumbers.length})</span>
                 {calledNumbers.length > 0 && (
                   <button
-                    onClick={resetMarks}
+                    onClick={() => {
+                      if (window.confirm('Clear all called numbers?')) {
+                        resetMarks();
+                      }
+                    }}
                     className="text-sm text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
                   >
                     Clear All
@@ -414,17 +418,7 @@ function App() {
             onClick={() => handleTabChange(activeTab === 'cards' ? 'session' : 'cards')}
             className="px-3 py-1.5 bg-blue-500/20 text-white rounded-lg text-sm font-medium hover:bg-blue-500/30 transition-colors flex items-center gap-1"
           >
-            {activeTab === 'cards' ? (
-              <>
-                <span>▶</span>
-                <span>Play</span>
-              </>
-            ) : (
-              <>
-                <span>🎴</span>
-                <span>Cards</span>
-              </>
-            )}
+            {activeTab === 'cards' ? '▶ Play' : 'My Cards'}
           </button>
         </div>
       </header>
