@@ -398,9 +398,7 @@ function App() {
 
       {/* Header */}
       <header className="bg-blue-600 dark:bg-blue-800 text-white shadow-lg">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="w-10" /> {/* Spacer for centering */}
-          <h1 className="text-2xl font-bold text-center">Bingo Assistant</h1>
+        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
           <button
             onClick={toggleTheme}
             className="p-2 rounded-lg hover:bg-blue-500 dark:hover:bg-blue-700 transition-colors"
@@ -408,34 +406,27 @@ function App() {
           >
             {isDark ? <SunIcon /> : <MoonIcon />}
           </button>
+          <h1 className="text-xl font-bold text-center">
+            {activeTab === 'cards' ? 'My Cards' : 'Track Game'}
+          </h1>
+          <button
+            onClick={() => handleTabChange(activeTab === 'cards' ? 'session' : 'cards')}
+            className="px-3 py-1.5 bg-blue-500/20 text-white rounded-lg text-sm font-medium hover:bg-blue-500/30 transition-colors flex items-center gap-1"
+          >
+            {activeTab === 'cards' ? (
+              <>
+                <span>▶</span>
+                <span>Play</span>
+              </>
+            ) : (
+              <>
+                <span>🎴</span>
+                <span>Cards</span>
+              </>
+            )}
+          </button>
         </div>
       </header>
-
-      {/* Tab navigation */}
-      <nav className="bg-white dark:bg-gray-800 shadow">
-        <div className="max-w-6xl mx-auto flex">
-          <button
-            onClick={() => handleTabChange('cards')}
-            className={`flex-1 py-3 text-center font-semibold transition-all border-b-4
-              ${activeTab === 'cards'
-                ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-              }`}
-          >
-            My Cards
-          </button>
-          <button
-            onClick={() => handleTabChange('session')}
-            className={`flex-1 py-3 text-center font-semibold transition-all border-b-4
-              ${activeTab === 'session'
-                ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-              }`}
-          >
-            Track Game
-          </button>
-        </div>
-      </nav>
 
       {/* Content */}
       <main className="max-w-6xl mx-auto">
