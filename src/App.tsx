@@ -158,14 +158,10 @@ function App() {
     if (cardView === 'new') {
       return (
         <div className="p-4">
-          <div className="mb-4">
-            <input
-              type="text"
-              value={newCardName}
-              onChange={(e) => setNewCardName(e.target.value)}
-              placeholder="Card name"
-              className="w-full px-4 py-2 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:border-blue-500 outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-            />
+          <div className="text-center mb-4">
+            <span className="text-xl font-bold text-gray-800 dark:text-gray-100">{newCardName}</span>
+            <span className="text-gray-400 dark:text-gray-500 mx-2">—</span>
+            <span className="text-gray-500 dark:text-gray-400">Select the numbers on your card</span>
           </div>
           <CardEditor
             card={{ id: 'new', name: newCardName, cells: newCardCells, createdAt: 0, hasFreeCenter: true }}
@@ -186,6 +182,11 @@ function App() {
 
       return (
         <div className="p-4">
+          <div className="text-center mb-4">
+            <span className="text-xl font-bold text-gray-800 dark:text-gray-100">{card.name}</span>
+            <span className="text-gray-400 dark:text-gray-500 mx-2">—</span>
+            <span className="text-gray-500 dark:text-gray-400">Select the numbers on your card</span>
+          </div>
           <CardEditor
             card={card}
             onCellChange={handleEditCardCellChange}
