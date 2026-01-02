@@ -129,20 +129,22 @@ export function CardEditor({ card, onCellChange, onSave, onCancel }: CardEditorP
 
       {/* Number Picker */}
       {selectedIndex !== null && selectedIndex !== 12 && (
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-md">
-          <div className="flex justify-between items-center mb-3">
-            <span className={`font-bold text-lg ${getColumnTextColorClass(selectedIndex % 5)}`}>
-              {BINGO_LETTERS[selectedIndex % 5]} Column
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+          {/* Full-width colored header bar */}
+          <div className={`${getColumnColorClass(selectedIndex % 5)} px-4 py-3 flex justify-between items-center`}>
+            <span className="font-bold text-lg text-white">
+              {BINGO_LETTERS[selectedIndex % 5]} Column ({COLUMN_RANGES[selectedIndex % 5].min}-{COLUMN_RANGES[selectedIndex % 5].max})
             </span>
             {card.cells[selectedIndex]?.number !== undefined && (
               <button
                 onClick={handleClearCell}
-                className="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded hover:bg-gray-200 dark:hover:bg-gray-600"
+                className="px-3 py-1 text-sm bg-white/20 text-white rounded hover:bg-white/30 transition-colors"
               >
                 Clear
               </button>
             )}
           </div>
+          <div className="p-4">
           <div className="flex flex-wrap gap-2 justify-center">
             {(() => {
               const col = selectedIndex % 5;
@@ -173,6 +175,7 @@ export function CardEditor({ card, onCellChange, onSave, onCancel }: CardEditorP
                 );
               });
             })()}
+          </div>
           </div>
         </div>
       )}
