@@ -4,6 +4,7 @@ import { BingoCard } from './components/BingoCard';
 import { NumberPicker, RecentlyCalled } from './components/NumberPicker';
 import { CardEditor } from './components/CardEditor';
 import { BingoOverlay } from './components/BingoOverlay';
+import { SlideToConfirm } from './components/SlideToConfirm';
 import { computeMarks, detectWins } from './core/rules';
 import type { Card, Cell, RuleMode } from './core/models';
 import { createCell, LINE_INDICES, RULE_MODES, RULE_MODE_LABELS } from './core/models';
@@ -36,6 +37,7 @@ function App() {
   // Bingo celebration state
   const [showBingoOverlay, setShowBingoOverlay] = useState(false);
   const [winningCardName, setWinningCardName] = useState('');
+  const [showClearSlider, setShowClearSlider] = useState(false);
   const celebratedWinsRef = useRef<Set<string>>(new Set());
 
   const { cards, addCard, deleteCard, setCellNumber, getCard } = useCardsStore();
@@ -328,16 +330,22 @@ function App() {
               <div className="flex justify-between items-center mb-2">
                 <span className="font-semibold text-gray-700 dark:text-gray-200">Recently Called ({calledNumbers.length})</span>
                 {calledNumbers.length > 0 && (
-                  <button
-                    onClick={() => {
-                      if (window.confirm('Clear all called numbers?')) {
+                  showClearSlider ? (
+                    <SlideToConfirm
+                      onConfirm={() => {
                         resetMarks();
-                      }
-                    }}
-                    className="text-sm text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-                  >
-                    Clear All
-                  </button>
+                        setShowClearSlider(false);
+                      }}
+                      onCancel={() => setShowClearSlider(false)}
+                    />
+                  ) : (
+                    <button
+                      onClick={() => setShowClearSlider(true)}
+                      className="text-sm text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                    >
+                      Clear All
+                    </button>
+                  )
                 )}
               </div>
               <RecentlyCalled
