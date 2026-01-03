@@ -7,7 +7,8 @@ import { BingoOverlay } from './components/BingoOverlay';
 import { ConfirmModal } from './components/ConfirmModal';
 import { computeMarks, detectWins } from './core/rules';
 import type { Card, Cell, RuleMode } from './core/models';
-import { createCell, LINE_INDICES, RULE_MODES, RULE_MODE_LABELS } from './core/models';
+import { createCell, LINE_INDICES, RULE_MODES, RULE_MODE_LABELS, BINGO_LETTERS } from './core/models';
+import { getBingoCall } from './core/bingoCalls';
 
 // Theme toggle icons
 const SunIcon = () => (
@@ -39,6 +40,10 @@ function App() {
   const [winningCardName, setWinningCardName] = useState('');
   const [showClearSlider, setShowClearSlider] = useState(false);
   const celebratedWinsRef = useRef<Set<string>>(new Set());
+
+  // Bingo call phrase display
+  const [currentCallPhrase, setCurrentCallPhrase] = useState<string | null>(null);
+  const callPhraseTimeoutRef = useRef<number | null>(null);
 
   const { cards, addCard, deleteCard, setCellNumber, getCard } = useCardsStore();
   const { currentSession, startSession, toggleCalledNumber, setRuleMode, resetMarks } = useSessionStore();
@@ -77,6 +82,15 @@ function App() {
       celebratedWinsRef.current.clear();
     }
   }, [currentSession?.calledNumbers.length]);
+
+  // Cleanup call phrase timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (callPhraseTimeoutRef.current) {
+        clearTimeout(callPhraseTimeoutRef.current);
+      }
+    };
+  }, []);
 
   // Start session if not already started
   const ensureSession = () => {
@@ -133,12 +147,39 @@ function App() {
     }
   };
 
+  // Handle number toggle with bingo call phrase display
+  const handleNumberToggle = (num: number) => {
+    const isCurrentlyCalled = currentSession?.calledNumbers.includes(num);
+
+    // Only show phrase when marking a number (not when un-marking)
+    if (!isCurrentlyCalled) {
+      const phrase = getBingoCall(num);
+      if (phrase) {
+        const col = Math.floor((num - 1) / 15);
+        const letter = BINGO_LETTERS[col];
+        setCurrentCallPhrase(`${phrase} — ${letter}${num}`);
+
+        // Clear any existing timeout
+        if (callPhraseTimeoutRef.current) {
+          clearTimeout(callPhraseTimeoutRef.current);
+        }
+
+        // Reset after 2 seconds
+        callPhraseTimeoutRef.current = window.setTimeout(() => {
+          setCurrentCallPhrase(null);
+        }, 2000);
+      }
+    }
+
+    toggleCalledNumber(num);
+  };
+
   // Handle number toggle from card click in session
   const handleCardCellClick = (card: Card, index: number) => {
     if (!currentSession) return;
     const cell = card.cells[index];
     if (cell.isFree || cell.number === undefined) return;
-    toggleCalledNumber(cell.number);
+    handleNumberToggle(cell.number);
   };
 
   // Get winning cell indices for highlighting
@@ -317,12 +358,16 @@ function App() {
               </select>
             </div>
 
-            <div className="text-center text-gray-500 dark:text-gray-400 mb-2 font-medium">
-              Tap numbers as they're called
+            <div className={`text-center mb-2 font-medium transition-all duration-300 ${
+              currentCallPhrase
+                ? 'text-blue-600 dark:text-blue-400 text-lg'
+                : 'text-gray-500 dark:text-gray-400'
+            }`}>
+              {currentCallPhrase || "Tap numbers as they're called"}
             </div>
             <NumberPicker
               calledNumbers={calledNumbers}
-              onToggle={toggleCalledNumber}
+              onToggle={handleNumberToggle}
             />
 
             {/* Recently called */}
