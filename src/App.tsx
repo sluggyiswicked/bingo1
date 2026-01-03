@@ -244,7 +244,7 @@ function App() {
               onClick={handleCreateCard}
               className="w-full max-w-xs px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all"
             >
-              Get Started
+              Add Your First Card
             </button>
           </div>
         ) : (
