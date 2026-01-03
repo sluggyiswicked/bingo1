@@ -4,7 +4,7 @@ import { BingoCard } from './components/BingoCard';
 import { NumberPicker, RecentlyCalled } from './components/NumberPicker';
 import { CardEditor } from './components/CardEditor';
 import { BingoOverlay } from './components/BingoOverlay';
-import { SlideToConfirm } from './components/SlideToConfirm';
+import { ConfirmModal } from './components/ConfirmModal';
 import { computeMarks, detectWins } from './core/rules';
 import type { Card, Cell, RuleMode } from './core/models';
 import { createCell, LINE_INDICES, RULE_MODES, RULE_MODE_LABELS } from './core/models';
@@ -330,22 +330,12 @@ function App() {
               <div className="flex justify-between items-center mb-2">
                 <span className="font-semibold text-gray-700 dark:text-gray-200">Recently Called ({calledNumbers.length})</span>
                 {calledNumbers.length > 0 && (
-                  showClearSlider ? (
-                    <SlideToConfirm
-                      onConfirm={() => {
-                        resetMarks();
-                        setShowClearSlider(false);
-                      }}
-                      onCancel={() => setShowClearSlider(false)}
-                    />
-                  ) : (
-                    <button
-                      onClick={() => setShowClearSlider(true)}
-                      className="text-sm text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
-                    >
-                      Clear All
-                    </button>
-                  )
+                  <button
+                    onClick={() => setShowClearSlider(true)}
+                    className="text-sm text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                  >
+                    Clear All
+                  </button>
                 )}
               </div>
               <RecentlyCalled
@@ -406,6 +396,20 @@ function App() {
         <BingoOverlay
           winnerName={winningCardName}
           onDismiss={() => setShowBingoOverlay(false)}
+        />
+      )}
+
+      {/* Clear confirmation modal */}
+      {showClearSlider && (
+        <ConfirmModal
+          title="Clear all numbers?"
+          message="This will reset the game."
+          confirmLabel="Clear All"
+          onConfirm={() => {
+            resetMarks();
+            setShowClearSlider(false);
+          }}
+          onCancel={() => setShowClearSlider(false)}
         />
       )}
 
